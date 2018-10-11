@@ -3,8 +3,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef 101coin_CSPORKDB_H
-#define 101coin_CSPORKDB_H
+#ifndef a101coin_CSPORKDB_H
+#define a101coin_CSPORKDB_H
 
 #include <boost/filesystem/path.hpp>
 #include "leveldbwrapper.h"
@@ -26,4 +26,4 @@ public:
 };
 
 
-#endif //101coin_CSPORKDB_H
+#endif //a101coin_CSPORKDB_H

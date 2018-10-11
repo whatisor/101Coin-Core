@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef 101coin_Z101WALLET_H
-#define 101coin_Z101WALLET_H
+#ifndef a101coin_Z101WALLET_H
+#define a101coin_Z101WALLET_H
 
 #include <map>
 #include "libzerocoin/Coin.h"
@@ -46,4 +46,4 @@ private:
     uint512 GetZerocoinSeed(uint32_t n);
 };
 
-#endif //101coin_Z101WALLET_H
+#endif //a101coin_Z101WALLET_H
