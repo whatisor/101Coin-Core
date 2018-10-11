@@ -20,6 +20,26 @@
 #include <fstream>
 using namespace std;
 
+UniValue getnextsuperblock(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+        throw runtime_error(
+            "getnextsuperblock\n"
+            "\nPrint the next super block height\n"
+
+            "\nResult:\n"
+            "n      (numeric) Block height of the next super block\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("getnextsuperblock", "") + HelpExampleRpc("getnextsuperblock", ""));
+
+    CBlockIndex* pindexPrev = chainActive.Tip();
+    if (!pindexPrev) return "unknown";
+
+    int nNext = pindexPrev->nHeight - pindexPrev->nHeight % GetBudgetPaymentCycleBlocks() + GetBudgetPaymentCycleBlocks();
+    return nNext;
+}
+
 void budgetToJSON(CBudgetProposal* pbudgetProposal, UniValue& bObj)
 {
     CTxDestination address1;
@@ -548,25 +568,6 @@ UniValue getbudgetvotes(const UniValue& params, bool fHelp)
     return ret;
 }
 
-UniValue getnextsuperblock(const UniValue& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getnextsuperblock\n"
-            "\nPrint the next super block height\n"
-
-            "\nResult:\n"
-            "n      (numeric) Block height of the next super block\n"
-
-            "\nExamples:\n" +
-            HelpExampleCli("getnextsuperblock", "") + HelpExampleRpc("getnextsuperblock", ""));
-
-    CBlockIndex* pindexPrev = chainActive.Tip();
-    if (!pindexPrev) return "unknown";
-
-    int nNext = pindexPrev->nHeight - pindexPrev->nHeight % GetBudgetPaymentCycleBlocks() + GetBudgetPaymentCycleBlocks();
-    return nNext;
-}
 
 UniValue getbudgetprojection(const UniValue& params, bool fHelp)
 {
