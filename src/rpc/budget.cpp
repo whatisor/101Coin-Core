@@ -21,92 +21,6 @@
 using namespace std;
 
 
-UniValue getbudgetinfo(const UniValue& params, bool fHelp)
-{
-    if (fHelp || params.size() > 1)
-        throw runtime_error(
-            "getbudgetinfo ( \"proposal\" )\n"
-            "\nShow current masternode budgets\n"
-
-            "\nArguments:\n"
-            "1. \"proposal\"    (string, optional) Proposal name\n"
-
-            "\nResult:\n"
-            "[\n"
-            "  {\n"
-            "    \"Name\": \"xxxx\",               (string) Proposal Name\n"
-            "    \"URL\": \"xxxx\",                (string) Proposal URL\n"
-            "    \"Hash\": \"xxxx\",               (string) Proposal vote hash\n"
-            "    \"FeeHash\": \"xxxx\",            (string) Proposal fee hash\n"
-            "    \"BlockStart\": n,              (numeric) Proposal starting block\n"
-            "    \"BlockEnd\": n,                (numeric) Proposal ending block\n"
-            "    \"TotalPaymentCount\": n,       (numeric) Number of payments\n"
-            "    \"RemainingPaymentCount\": n,   (numeric) Number of remaining payments\n"
-            "    \"PaymentAddress\": \"xxxx\",     (string) 101 Coin address of payment\n"
-            "    \"Ratio\": x.xxx,               (numeric) Ratio of yeas vs nays\n"
-            "    \"Yeas\": n,                    (numeric) Number of yea votes\n"
-            "    \"Nays\": n,                    (numeric) Number of nay votes\n"
-            "    \"Abstains\": n,                (numeric) Number of abstains\n"
-            "    \"TotalPayment\": xxx.xxx,      (numeric) Total payment amount\n"
-            "    \"MonthlyPayment\": xxx.xxx,    (numeric) Monthly payment amount\n"
-            "    \"IsEstablished\": true|false,  (boolean) Established (true) or (false)\n"
-            "    \"IsValid\": true|false,        (boolean) Valid (true) or Invalid (false)\n"
-            "    \"IsValidReason\": \"xxxx\",      (string) Error message, if any\n"
-            "    \"fValid\": true|false,         (boolean) Valid (true) or Invalid (false)\n"
-            "  }\n"
-            "  ,...\n"
-            "]\n"
-
-            "\nExamples:\n" +
-            HelpExampleCli("getbudgetprojection", "") + HelpExampleRpc("getbudgetprojection", ""));
-
-    UniValue ret(UniValue::VARR);
-
-    std::string strShow = "valid";
-    if (params.size() == 1) {
-        std::string strProposalName = SanitizeString(params[0].get_str());
-        CBudgetProposal* pbudgetProposal = budget.FindProposal(strProposalName);
-        if (pbudgetProposal == NULL) throw runtime_error("Unknown proposal name");
-        UniValue bObj(UniValue::VOBJ);
-        budgetToJSON(pbudgetProposal, bObj);
-        ret.push_back(bObj);
-        return ret;
-    }
-
-    std::vector<CBudgetProposal*> winningProps = budget.GetAllProposals();
-    BOOST_FOREACH (CBudgetProposal* pbudgetProposal, winningProps) {
-        if (strShow == "valid" && !pbudgetProposal->fValid) continue;
-
-        UniValue bObj(UniValue::VOBJ);
-        budgetToJSON(pbudgetProposal, bObj);
-
-        ret.push_back(bObj);
-    }
-
-    return ret;
-}
-
-
-UniValue getnextsuperblock(const UniValue& params, bool fHelp)
-{
-    if (fHelp || params.size() != 0)
-        throw runtime_error(
-            "getnextsuperblock\n"
-            "\nPrint the next super block height\n"
-
-            "\nResult:\n"
-            "n      (numeric) Block height of the next super block\n"
-
-            "\nExamples:\n" +
-            HelpExampleCli("getnextsuperblock", "") + HelpExampleRpc("getnextsuperblock", ""));
-
-    CBlockIndex* pindexPrev = chainActive.Tip();
-    if (!pindexPrev) return "unknown";
-
-    int nNext = pindexPrev->nHeight - pindexPrev->nHeight % GetBudgetPaymentCycleBlocks() + GetBudgetPaymentCycleBlocks();
-    return nNext;
-}
-
 void budgetToJSON(CBudgetProposal* pbudgetProposal, UniValue& bObj)
 {
     CTxDestination address1;
@@ -231,6 +145,92 @@ UniValue preparebudget(const UniValue& params, bool fHelp)
 
     return wtx.GetHash().ToString();
 }
+UniValue getbudgetinfo(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() > 1)
+        throw runtime_error(
+            "getbudgetinfo ( \"proposal\" )\n"
+            "\nShow current masternode budgets\n"
+
+            "\nArguments:\n"
+            "1. \"proposal\"    (string, optional) Proposal name\n"
+
+            "\nResult:\n"
+            "[\n"
+            "  {\n"
+            "    \"Name\": \"xxxx\",               (string) Proposal Name\n"
+            "    \"URL\": \"xxxx\",                (string) Proposal URL\n"
+            "    \"Hash\": \"xxxx\",               (string) Proposal vote hash\n"
+            "    \"FeeHash\": \"xxxx\",            (string) Proposal fee hash\n"
+            "    \"BlockStart\": n,              (numeric) Proposal starting block\n"
+            "    \"BlockEnd\": n,                (numeric) Proposal ending block\n"
+            "    \"TotalPaymentCount\": n,       (numeric) Number of payments\n"
+            "    \"RemainingPaymentCount\": n,   (numeric) Number of remaining payments\n"
+            "    \"PaymentAddress\": \"xxxx\",     (string) 101 Coin address of payment\n"
+            "    \"Ratio\": x.xxx,               (numeric) Ratio of yeas vs nays\n"
+            "    \"Yeas\": n,                    (numeric) Number of yea votes\n"
+            "    \"Nays\": n,                    (numeric) Number of nay votes\n"
+            "    \"Abstains\": n,                (numeric) Number of abstains\n"
+            "    \"TotalPayment\": xxx.xxx,      (numeric) Total payment amount\n"
+            "    \"MonthlyPayment\": xxx.xxx,    (numeric) Monthly payment amount\n"
+            "    \"IsEstablished\": true|false,  (boolean) Established (true) or (false)\n"
+            "    \"IsValid\": true|false,        (boolean) Valid (true) or Invalid (false)\n"
+            "    \"IsValidReason\": \"xxxx\",      (string) Error message, if any\n"
+            "    \"fValid\": true|false,         (boolean) Valid (true) or Invalid (false)\n"
+            "  }\n"
+            "  ,...\n"
+            "]\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("getbudgetprojection", "") + HelpExampleRpc("getbudgetprojection", ""));
+
+    UniValue ret(UniValue::VARR);
+
+    std::string strShow = "valid";
+    if (params.size() == 1) {
+        std::string strProposalName = SanitizeString(params[0].get_str());
+        CBudgetProposal* pbudgetProposal = budget.FindProposal(strProposalName);
+        if (pbudgetProposal == NULL) throw runtime_error("Unknown proposal name");
+        UniValue bObj(UniValue::VOBJ);
+        budgetToJSON(pbudgetProposal, bObj);
+        ret.push_back(bObj);
+        return ret;
+    }
+
+    std::vector<CBudgetProposal*> winningProps = budget.GetAllProposals();
+    BOOST_FOREACH (CBudgetProposal* pbudgetProposal, winningProps) {
+        if (strShow == "valid" && !pbudgetProposal->fValid) continue;
+
+        UniValue bObj(UniValue::VOBJ);
+        budgetToJSON(pbudgetProposal, bObj);
+
+        ret.push_back(bObj);
+    }
+
+    return ret;
+}
+
+
+UniValue getnextsuperblock(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+        throw runtime_error(
+            "getnextsuperblock\n"
+            "\nPrint the next super block height\n"
+
+            "\nResult:\n"
+            "n      (numeric) Block height of the next super block\n"
+
+            "\nExamples:\n" +
+            HelpExampleCli("getnextsuperblock", "") + HelpExampleRpc("getnextsuperblock", ""));
+
+    CBlockIndex* pindexPrev = chainActive.Tip();
+    if (!pindexPrev) return "unknown";
+
+    int nNext = pindexPrev->nHeight - pindexPrev->nHeight % GetBudgetPaymentCycleBlocks() + GetBudgetPaymentCycleBlocks();
+    return nNext;
+}
+
 
 UniValue submitbudget(const UniValue& params, bool fHelp)
 {
