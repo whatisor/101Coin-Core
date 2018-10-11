@@ -13,6 +13,8 @@
 #include "utilstrencodings.h"
 
 #include <assert.h>
+#include <fstream>
+#include <stdint.h>
 #include <stdio.h>
 
 #include <boost/assign/list_of.hpp>
