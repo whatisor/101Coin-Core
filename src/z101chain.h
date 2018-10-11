@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef 101coin_Z101CHAIN_H
-#define 101coin_Z101CHAIN_H
+#ifndef a101coin_Z101CHAIN_H
+#define a101coin_Z101CHAIN_H
 
 #include "libzerocoin/Coin.h"
 #include "libzerocoin/Denominations.h"

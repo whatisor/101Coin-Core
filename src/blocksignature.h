@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef 101coin_BLOCKSIGNATURE_H
-#define 101coin_BLOCKSIGNATURE_H
+#ifndef a101coin_BLOCKSIGNATURE_H
+#define a101coin_BLOCKSIGNATURE_H
 
 #include "key.h"
 #include "primitives/block.h"
