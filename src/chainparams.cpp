@@ -168,7 +168,7 @@ public:
         genesis.nNonce = 2402015;
 
         hashGenesisBlock = genesis.GetHash();
-		hashGenesisBlock = uint256("0x01")
+		hashGenesisBlock = uint256("0x01");
 		if (true && genesis.GetHash() != hashGenesisBlock)
 			{
             Logprintf("recalculating params for mainnet.\n");
