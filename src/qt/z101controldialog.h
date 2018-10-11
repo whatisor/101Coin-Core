@@ -1,9 +1,10 @@
 // Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2018 The 101 Coin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef ZPIVCONTROLDIALOG_H
-#define ZPIVCONTROLDIALOG_H
+#ifndef Z101CONTROLDIALOG_H
+#define Z101CONTROLDIALOG_H
 
 #include <QDialog>
 #include <QTreeWidgetItem>
@@ -14,16 +15,16 @@ class CZerocoinMint;
 class WalletModel;
 
 namespace Ui {
-class ZPivControlDialog;
+class Z101ControlDialog;
 }
 
-class ZPivControlDialog : public QDialog
+class Z101ControlDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit ZPivControlDialog(QWidget *parent);
-    ~ZPivControlDialog();
+    explicit Z101ControlDialog(QWidget *parent);
+    ~Z101ControlDialog();
 
     void setModel(WalletModel* model);
 
@@ -32,7 +33,7 @@ public:
     static std::vector<CMintMeta> GetSelectedMints();
 
 private:
-    Ui::ZPivControlDialog *ui;
+    Ui::Z101ControlDialog *ui;
     WalletModel* model;
     PrivacyDialog* privacyDialog;
 
@@ -53,4 +54,4 @@ private slots:
     void ButtonAllClicked();
 };
 
-#endif // ZPIVCONTROLDIALOG_H
+#endif // Z101CONTROLDIALOG_H

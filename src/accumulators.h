@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef 101coin_ACCUMULATORS_H
-#define 101coin_ACCUMULATORS_H
+#ifndef a101coin_ACCUMULATORS_H
+#define a101coin_ACCUMULATORS_H
 
 #include "libzerocoin/Accumulator.h"
 #include "libzerocoin/Coin.h"
@@ -30,4 +30,4 @@ int GetChecksumHeight(uint32_t nChecksum, libzerocoin::CoinDenomination denomina
 bool InvalidCheckpointRange(int nHeight);
 bool ValidateAccumulatorCheckpoint(const CBlock& block, CBlockIndex* pindex, AccumulatorMap& mapAccumulators);
 
-#endif //101coin_ACCUMULATORS_H
+#endif //a101coin_ACCUMULATORS_H

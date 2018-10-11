@@ -4,8 +4,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_SERIALIZE_H
-#define PIVX_SERIALIZE_H
+#ifndef a101_SERIALIZE_H
+#define a101_SERIALIZE_H
 
 #include <algorithm>
 #include <assert.h>
@@ -965,4 +965,4 @@ public:
     }
 };
 
-#endif // PIVX_SERIALIZE_H
+#endif // a101_SERIALIZE_H

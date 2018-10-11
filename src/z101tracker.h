@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef 101Coin_ZPIVTRACKER_H
-#define 101Coin_ZPIVTRACKER_H
+#ifndef a101Coin_Z101TRACKER_H
+#define a101Coin_Z101TRACKER_H
 
 #include "primitives/zerocoin.h"
 #include <list>

@@ -1,6 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2013 The Bitcoin developers
 // Copyright (c) 2016-2018 The PIVX developers
+// Copyright (c) 2018 The 101 Coin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,7 +15,7 @@
 #include "primitives/zerocoin.h"
 #include "libzerocoin/Accumulator.h"
 #include "libzerocoin/Denominations.h"
-#include "zpivtracker.h"
+#include "z101tracker.h"
 
 #include <list>
 #include <stdint.h>
@@ -175,14 +176,14 @@ public:
     bool ReadZerocoinSpendSerialEntry(const CBigNum& bnSerial);
     bool WriteCurrentSeedHash(const uint256& hashSeed);
     bool ReadCurrentSeedHash(uint256& hashSeed);
-    bool WriteZPIVSeed(const uint256& hashSeed, const vector<unsigned char>& seed);
-    bool ReadZPIVSeed(const uint256& hashSeed, vector<unsigned char>& seed);
-    bool ReadZPIVSeed_deprecated(uint256& seed);
-    bool EraseZPIVSeed();
-    bool EraseZPIVSeed_deprecated();
+    bool WriteZ101Seed(const uint256& hashSeed, const vector<unsigned char>& seed);
+    bool ReadZ101Seed(const uint256& hashSeed, vector<unsigned char>& seed);
+    bool ReadZ101Seed_deprecated(uint256& seed);
+    bool EraseZ101Seed();
+    bool EraseZ101Seed_deprecated();
 
-    bool WriteZPIVCount(const uint32_t& nCount);
-    bool ReadZPIVCount(uint32_t& nCount);
+    bool WriteZ101Count(const uint32_t& nCount);
+    bool ReadZ101Count(uint32_t& nCount);
     std::map<uint256, std::vector<pair<uint256, uint32_t> > > MapMintPool();
     bool WriteMintPoolPair(const uint256& hashMasterSeed, const uint256& hashPubcoin, const uint32_t& nCount);
 

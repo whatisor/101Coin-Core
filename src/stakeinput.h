@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef 101coin_STAKEINPUT_H
-#define 101coin_STAKEINPUT_H
+#ifndef a101coin_STAKEINPUT_H
+#define a101coin_STAKEINPUT_H
 
 class CKeyStore;
 class CWallet;
