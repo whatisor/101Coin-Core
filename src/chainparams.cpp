@@ -9,10 +9,11 @@
 #include "libzerocoin/Params.h"
 #include "chainparams.h"
 #include "random.h"
-#include "util.h"
+#include "util.h
 #include "utilstrencodings.h"
 
 #include <assert.h>
+#include <stdio.h>
 
 #include <boost/assign/list_of.hpp>
 
