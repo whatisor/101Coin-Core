@@ -1587,8 +1587,10 @@ bool AppInit2(boost::thread_group& threadGroup, CScheduler& scheduler)
                 pwalletMain->SetMinVersion(FEATURE_LATEST); // permanently upgrade the wallet immediately
             } else
                 LogPrintf("Allowing wallet upgrade up to %i\n", nMaxVersion);
-            if (nMaxVersion < pwalletMain->GetVersion())
+            if (nMaxVersion < pwalletMain->GetVersion())){
+				LogPrintf("Cannot downgrade wallet nMaxVersion: %d, nVersion: %d", nMaxVersion, pwalletMain->GetVersion());
                 strErrors << _("Cannot downgrade wallet") << "\n";
+            }
             pwalletMain->SetMaxVersion(nMaxVersion);
         }
 

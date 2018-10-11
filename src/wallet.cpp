@@ -2,7 +2,7 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2018 The 101 Coin developers
+w
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -355,6 +355,7 @@ bool CWallet::SetMaxVersion(int nVersion)
 {
     LOCK(cs_wallet); // nWalletVersion, nWalletMaxVersion
     // cannot downgrade below current version
+	 LogPrintf("SetMaxVersion() nWalletVersion: %d, nVersion: %d", nWalletVersion, nVersion);
     if (nWalletVersion > nVersion)
         return false;
 
