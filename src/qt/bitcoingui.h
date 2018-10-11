@@ -1,5 +1,6 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2018 The 101 Coin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,7 +8,7 @@
 #define BITCOIN_QT_BITCOINGUI_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/pivx-config.h"
+#include "config/101coin-config.h"
 #endif
 
 #include "amount.h"
@@ -85,7 +86,6 @@ private:
 
     UnitDisplayStatusBarControl* unitDisplayControl;
     QLabel* labelStakingIcon;
-    QPushButton* labelAutoMintIcon;
     QPushButton* labelEncryptionIcon;
     QLabel* labelTorIcon;
     QPushButton* labelConnectionsIcon;
@@ -186,7 +186,6 @@ public slots:
 
 #ifdef ENABLE_WALLET
     void setStakingStatus();
-    void setAutoMintStatus();
 
     /** Set the encryption status as shown in the UI.
        @param[in] status            current encryption status

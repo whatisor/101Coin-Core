@@ -1,5 +1,6 @@
 // Copyright (c) 2012-2013 The PPCoin developers
 // Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2018 The 101 Coin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -12,7 +13,7 @@
 #include "timedata.h"
 #include "util.h"
 #include "stakeinput.h"
-#include "zpivchain.h"
+#include "z101chain.h"
 
 using namespace std;
 
@@ -82,8 +83,6 @@ static bool SelectBlockFromCandidates(
     uint64_t nStakeModifierPrev,
     const CBlockIndex** pindexSelected)
 {
-    bool fModifierV2 = false;
-    bool fFirstRun = true;
     bool fSelected = false;
     uint256 hashBest = 0;
     *pindexSelected = (const CBlockIndex*)0;
@@ -95,21 +94,10 @@ static bool SelectBlockFromCandidates(
         if (fSelected && pindex->GetBlockTime() > nSelectionIntervalStop)
             break;
 
-        //if the lowest block height (vSortedByTimestamp[0]) is >= switch height, use new modifier calc
-        if (fFirstRun){
-            fModifierV2 = pindex->nHeight >= Params().ModifierUpgradeBlock();
-            fFirstRun = false;
-        }
-
         if (mapSelectedBlocks.count(pindex->GetBlockHash()) > 0)
             continue;
-
-        // compute the selection hash by hashing an input that is unique to that block
-        uint256 hashProof;
-        if(fModifierV2)
-            hashProof = pindex->GetBlockHash();
-        else
-            hashProof = pindex->IsProofOfStake() ? 0 : pindex->GetBlockHash();
+		
+		uint256 hashProof = pindex->GetBlockHash();
 
         CDataStream ss(SER_GETHASH, 0);
         ss << hashProof << nStakeModifierPrev;
@@ -358,7 +346,7 @@ bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake, std::uniqu
         if (spend.getSpendType() != libzerocoin::SpendType::STAKE)
             return error("%s: spend is using the wrong SpendType (%d)", __func__, (int)spend.getSpendType());
 
-        stake = std::unique_ptr<CStakeInput>(new CZPivStake(spend));
+        stake = std::unique_ptr<CStakeInput>(new CZ101Stake(spend));
     } else {
         // First try finding the previous transaction in database
         uint256 hashBlock;
@@ -370,9 +358,9 @@ bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake, std::uniqu
         if (!VerifyScript(txin.scriptSig, txPrev.vout[txin.prevout.n].scriptPubKey, STANDARD_SCRIPT_VERIFY_FLAGS, TransactionSignatureChecker(&tx, 0)))
             return error("CheckProofOfStake() : VerifySignature failed on coinstake %s", tx.GetHash().ToString().c_str());
 
-        CPivStake* pivInput = new CPivStake();
-        pivInput->SetInput(txPrev, txin.prevout.n);
-        stake = std::unique_ptr<CStakeInput>(pivInput);
+        C101Stake* 101Input = new C101Stake();
+        101Input->SetInput(txPrev, txin.prevout.n);
+        stake = std::unique_ptr<CStakeInput>(101Input);
     }
 
     CBlockIndex* pindex = stake->GetIndexFrom();

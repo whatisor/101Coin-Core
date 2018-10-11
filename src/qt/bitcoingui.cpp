@@ -1,6 +1,7 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
+// Copyright (c) 2018 The 101 Coin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -177,11 +178,6 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
     frameBlocksLayout->setSpacing(3);
     unitDisplayControl = new UnitDisplayStatusBarControl();
     labelStakingIcon = new QLabel();
-    labelAutoMintIcon = new QPushButton();
-    labelAutoMintIcon->setObjectName("labelAutoMintIcon");
-    labelAutoMintIcon->setFlat(true); // Make the button look like a label, but clickable
-    labelAutoMintIcon->setStyleSheet(".QPushButton { background-color: rgba(255, 255, 255, 0);}");
-    labelAutoMintIcon->setMaximumSize(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE);
     labelEncryptionIcon = new QPushButton();
     labelEncryptionIcon->setObjectName("labelEncryptionIcon");
     labelEncryptionIcon->setFlat(true); // Make the button look like a label, but clickable
@@ -202,8 +198,6 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
         frameBlocksLayout->addWidget(labelEncryptionIcon);
         frameBlocksLayout->addStretch();
         frameBlocksLayout->addWidget(labelStakingIcon);
-        frameBlocksLayout->addStretch();
-        frameBlocksLayout->addWidget(labelAutoMintIcon);
     }
 #endif // ENABLE_WALLET
     frameBlocksLayout->addWidget(labelTorIcon);
@@ -244,7 +238,6 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
     connect(showBackupsAction, SIGNAL(triggered()), rpcConsole, SLOT(showBackups()));
     connect(labelConnectionsIcon, SIGNAL(clicked()), rpcConsole, SLOT(showPeers()));
     connect(labelEncryptionIcon, SIGNAL(clicked()), walletFrame, SLOT(toggleLockWallet()));
-    connect(labelAutoMintIcon, SIGNAL(clicked()), this, SLOT(optionsClicked()));
 
     // Get restart command-line parameters and handle restart
     connect(rpcConsole, SIGNAL(handleRestart(QStringList)), this, SLOT(handleRestart(QStringList)));
@@ -271,10 +264,6 @@ BitcoinGUI::BitcoinGUI(const NetworkStyle* networkStyle, QWidget* parent) : QMai
     timerStakingIcon->start(10000);
     setStakingStatus();
 
-    QTimer* timerAutoMintIcon = new QTimer(labelAutoMintIcon);
-    connect(timerAutoMintIcon, SIGNAL(timeout()), this, SLOT(setAutoMintStatus()));
-    timerAutoMintIcon->start(10000);
-    setAutoMintStatus();
 }
 
 BitcoinGUI::~BitcoinGUI()
@@ -1175,19 +1164,6 @@ void BitcoinGUI::setStakingStatus()
         labelStakingIcon->show();
         labelStakingIcon->setPixmap(QIcon(":/icons/staking_inactive").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
         labelStakingIcon->setToolTip(tr("Staking is not active\n MultiSend: %1").arg(fMultiSend ? tr("Active") : tr("Not Active")));
-    }
-}
-
-void BitcoinGUI::setAutoMintStatus()
-{
-    if (fEnableZeromint) {
-        labelAutoMintIcon->show();
-        labelAutoMintIcon->setIcon(QIcon(":/icons/automint_active").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
-        labelAutoMintIcon->setToolTip(tr("AutoMint is currently enabled and set to ") + QString::number(nZeromintPercentage) + "%.\n");
-    } else {
-        labelAutoMintIcon->show();
-        labelAutoMintIcon->setIcon(QIcon(":/icons/automint_inactive").pixmap(STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE));
-        labelAutoMintIcon->setToolTip(tr("AutoMint is disabled"));
     }
 }
 
