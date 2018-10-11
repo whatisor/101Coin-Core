@@ -1,7 +1,7 @@
-101 A Coin  | 101 
+101 Coin
 =====================================
 
-101 A Coin is an open source utility coin which will power the 101 Coin network. The 101 A Class coin will utilise a proof of stake protocol for securing it's network and uses innovative reward mechanism which will eventually result in the A Class coin recieving rewards in an asset backed stable coin, the 101 coin. It's goal is to produce a coin which rewards it's holders with a asset backed token which has real intrisic value. 
+101 Coin is an open source utility coin which will power the 101 Coin network. The 101 coin will utilise a proof of stake protocol for securing it's network and uses innovative reward mechanism which will eventually result in the A Class coin recieving rewards in an asset backed stable coin, the 101A coin.  With typical masternode setups the rewards decrease over time. The goals of the 101 ecosystem is to produce a coin which rewards it's masternodes with a secondary asset backed token which has real intrisic value. As the number of the asset backed tokens inceases the rewards for the masternode operators will increase.   
 
 More information at [101coin.io](http://www.101coin.io) or in our whitepaper
 
