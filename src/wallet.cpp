@@ -5120,17 +5120,6 @@ void CWallet::Z101BackupWallet()
 
     BackupWallet(*this, backupPath.string());
 
-    if(!GetArg("-z101backuppath", "").empty()) {
-        filesystem::path customPath(GetArg("-z101backuppath", ""));
-        filesystem::create_directories(customPath);
-
-        if(!customPath.has_extension()) {
-            customPath /= GetUniqueWalletBackupName(true);
-        }
-
-        BackupWallet(*this, customPath, false);
-    }
-
 }
 
 string CWallet::MintZerocoinFromOutPoint(CAmount nValue, CWalletTx& wtxNew, vector<CDeterministicMint>& vDMints, const vector<COutPoint> vOutpts)
