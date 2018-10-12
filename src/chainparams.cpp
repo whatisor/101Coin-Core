@@ -172,11 +172,6 @@ public:
 
         hashGenesisBlock = genesis.GetHash();
 	//	hashGenesisBlock = uint256("0x01");
-		 if(genesis.GetHash() != uint256("0x"))
-        {
-        printf("MSearching for genesis block...\n");
-        uint256 hashTarget;
-        hashTarget.SetCompact(genesis.nBits);
 
         assert(hashGenesisBlock == uint256("00000669421d68496a74f7866872599436cba554aea508f9f7597e320b68f100"));
         assert(genesis.hashMerkleRoot == uint256("fdab1dc28f9886fd403dbd599af67e8e928ed4d02d540de6455c7d1670aa06cf"));
@@ -348,7 +343,8 @@ public:
         genesis.nNonce = 12345;
 
         hashGenesisBlock = genesis.GetHash();
-
+		   
+		
         nDefaultPort = 51476;
 		
 		
