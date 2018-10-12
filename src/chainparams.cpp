@@ -269,11 +269,34 @@ public:
         nRejectOldSporkKey = 1522454400; //!> Reject old spork key after Saturday, March 31, 2018 12:00:00 AM GMT
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1454124731;
+        genesis.nTime = 1454124742;
         genesis.nNonce = 2402015;
 
         hashGenesisBlock = genesis.GetHash();
-	
+		 if(genesis.GetHash() != uint256("0x"))
+        {
+        printf("MSearching for genesis block...\n");
+        uint256 hashTarget;
+        hashTarget.SetCompact(genesis.nBits);
+        while(uint256(genesis.GetHash()) > uint256(hashTarget))
+        {
+            ++genesis.nNonce;
+            if (genesis.nNonce == 0)
+            {
+                printf("testnet NONCE WRAPPED, incrementing time");
+                std::cout << std::string("testnet NONCE WRAPPED, incrementing time:\n");
+                ++genesis.nTime;
+            }
+            if (genesis.nNonce % 10000 == 0)
+            {
+               printf("testnet: nonce %08u: hash = %s \n", genesis.nNonce, genesis.GetHash().ToString().c_str());
+            }
+        }
+        printf("testnet block.nTime = %u \n", genesis.nTime);
+        printf("testnet block.nNonce = %u \n", genesis.nNonce);
+        printf("testnet block.hashMerkleRoot: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+        printf("testnet block.GetHash = %s\n", genesis.GetHash().ToString().c_str());
+        }
 		
         assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
 
@@ -338,7 +361,7 @@ public:
         nTargetTimespan = 24 * 60 * 60; // 101 Coin: 1 day
         nTargetSpacing = 1 * 60;        // 101 COin: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
-        genesis.nTime = 1454124731;
+        genesis.nTime = 1454124732;
         genesis.nBits = 0x207fffff;
         genesis.nNonce = 12345;
 
