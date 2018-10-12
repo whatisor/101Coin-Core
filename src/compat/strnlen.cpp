@@ -5,7 +5,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/101coinx-config.h"
+#include "config/101coin-config.h"
 #endif
 
 #include <cstring>
