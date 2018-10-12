@@ -172,17 +172,34 @@ public:
 
         hashGenesisBlock = genesis.GetHash();
 		hashGenesisBlock = uint256("0x01");
-		if (true && genesis.GetHash() != hashGenesisBlock)
+	  // If genesis block hash does not match, then generate new genesis hash.
+		if (block.GetHash() != hashGenesisBlock)
+		{
+			printf("Searching for genesis block...\n");
+			// This will figure out a valid hash and Nonce if you're
+			// creating a different genesis block:
+			uint256 hashTarget = CBigNum().SetCompact(block.nBits).getuint256();
+			uint256 thash;
+
+			while(true)
 			{
-            printf("recalculating params for mainnet.\n");
-            printf("old mainnet genesis nonce: %s\n", genesis.nNonce.ToString().c_str());
-            printf("old mainnet genesis hash:  %s\n", hashGenesisBlock.ToString().c_str());
-            // deliberately empty for loop finds nonce value.
-            for(genesis.nNonce == 0; genesis.GetHash() > bnProofOfWorkLimit; genesis.nNonce++){ } 
-            printf("new mainnet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
-            printf("new mainnet genesis nonce: %s\n", genesis.nNonce.ToString().c_str());
-            printf("new mainnet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
+				thash = scrypt_blockhash(BEGIN(block.nVersion));
+				if (thash <= hashTarget)
+					break;
+				if ((block.nNonce & 0xFFF) == 0)
+				{
+					printf("nonce %08X: hash = %s (target = %s)\n", block.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
+				}
+				++block.nNonce;
+				if (block.nNonce == 0)
+				{
+					printf("NONCE WRAPPED, incrementing time\n");
+					++block.nTime;
+				}
 			}
+			printf("block.nTime = %u \n", block.nTime);
+			printf("block.nNonce = %u \n", block.nNonce);
+			printf("block.GetHash = %s\n", block.GetHash().ToString().c_str());
 		
         assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
         assert(genesis.hashMerkleRoot == uint256("0x1b2ef6e2f28be914103a277377ae7729dcd125dfeb8bf97bd5964ba72b6dc39b"));
@@ -284,17 +301,35 @@ public:
         genesis.nNonce = 2402015;
 
         hashGenesisBlock = genesis.GetHash();
-		if (true && genesis.GetHash() != hashGenesisBlock)
-			{
-            printf("recalculating params for testnet.\n");
-            printf("old testnet genesis nonce: %s\n", genesis.nNonce.ToString().c_str());
-            printf("old testnet genesis hash:  %s\n", hashGenesisBlock.ToString().c_str());
-            // deliberately empty for loop finds nonce value.
-            for(genesis.nNonce == 0; genesis.GetHash() > bnProofOfWorkLimit; genesis.nNonce++){ } 
-            printf("new testnet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
-            printf("new testnet genesis nonce: %s\n", genesis.nNonce.ToString().c_str());
-            printf("new testnet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
-			}
+	  // If genesis block hash does not match, then generate new genesis hash.
+   
+   if (block.GetHash() != hashGenesisBlock)
+    {
+        printf("Searching for genesis block...\n");
+        // This will figure out a valid hash and Nonce if you're
+        // creating a different genesis block:
+        uint256 hashTarget = CBigNum().SetCompact(block.nBits).getuint256();
+        uint256 thash;
+
+        while(true)
+        {
+            thash = scrypt_blockhash(BEGIN(block.nVersion));
+            if (thash <= hashTarget)
+                break;
+            if ((block.nNonce & 0xFFF) == 0)
+            {
+                printf("nonce %08X: hash = %s (target = %s)\n", block.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
+            }
+            ++block.nNonce;
+            if (block.nNonce == 0)
+            {
+                printf("NONCE WRAPPED, incrementing time\n");
+                ++block.nTime;
+            }
+        }
+        printf("block.nTime = %u \n", block.nTime);
+        printf("block.nNonce = %u \n", block.nNonce);
+        printf("block.GetHash = %s\n", block.GetHash().ToString().c_str());
 		
         assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
 
