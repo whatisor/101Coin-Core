@@ -325,10 +325,10 @@ public:
         networkID = CBaseChainParams::REGTEST;
         strNetworkID = "regtest";
         strNetworkID = "regtest";
-        pchMessageStart[0] = 0xa1;
+        pchMessageStart[0] = 0xa3;
         pchMessageStart[1] = 0xcf;
-        pchMessageStart[2] = 0x7e;
-        pchMessageStart[3] = 0xac;
+        pchMessageStart[2] = 0x7d;
+        pchMessageStart[3] = 0xab;
         nSubsidyHalvingInterval = 150;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
@@ -339,7 +339,7 @@ public:
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         genesis.nTime = 1454124753;
         genesis.nBits = 0x207fffff;
-        genesis.nNonce = 2193701;
+        genesis.nNonce = 2193705;
 
         hashGenesisBlock = genesis.GetHash();
 		if(genesis.GetHash() != uint256("0x"))
@@ -370,8 +370,9 @@ public:
         nDefaultPort = 51476;
 		
 		
-        assert(hashGenesisBlock == uint256("23370e680e83753d9700db2001c1d1563c07a5862d16ef55081ee67fccfa0984"));
-
+        assert(hashGenesisBlock == uint256("22655673b3911389da64dea5727f1247b8a5e2c4ad1ee3534679622132d12b9d"));
+		assert(genesis.hashMerkleRoot == uint256("fdab1dc28f9886fd403dbd599af67e8e928ed4d02d540de6455c7d1670aa06cf"));
+			
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.
 
