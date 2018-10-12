@@ -20,7 +20,7 @@ BitcoinUnits::BitcoinUnits(QObject* parent) : QAbstractListModel(parent),
 QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 {
     QList<BitcoinUnits::Unit> unitlist;
-    unitlist.append(101);
+    unitlist.append(IOI);
     unitlist.append(m101);
     unitlist.append(u101);
     return unitlist;
@@ -29,7 +29,7 @@ QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
 bool BitcoinUnits::valid(int unit)
 {
     switch (unit) {
-    case 101:
+    case IOI:
     case m101:
     case u101:
         return true;
@@ -41,8 +41,8 @@ bool BitcoinUnits::valid(int unit)
 QString BitcoinUnits::id(int unit)
 {
     switch (unit) {
-    case 101:
-        return QString("101");
+    case IOI:
+        return QString("IOI");
     case m101:
         return QString("m101");
     case u101:
@@ -56,8 +56,8 @@ QString BitcoinUnits::name(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case 101:
-            return QString("101");
+        case IOI:
+            return QString("IOI");
         case m101:
             return QString("m101");
         case u101:
@@ -67,7 +67,7 @@ QString BitcoinUnits::name(int unit)
         }
     } else {
         switch (unit) {
-        case 101:
+        case IOI:
             return QString("t101");
         case m101:
             return QString("mt101");
@@ -83,7 +83,7 @@ QString BitcoinUnits::description(int unit)
 {
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
-        case 101:
+        case IOI:
             return QString("101");
         case m101:
             return QString("Milli-101 (1 / 1" THIN_SP_UTF8 "000)");
@@ -94,7 +94,7 @@ QString BitcoinUnits::description(int unit)
         }
     } else {
         switch (unit) {
-        case 101:
+        case IOI:
             return QString("Test101s");
         case m101:
             return QString("Milli-Test101 (1 / 1" THIN_SP_UTF8 "000)");
@@ -109,7 +109,7 @@ QString BitcoinUnits::description(int unit)
 qint64 BitcoinUnits::factor(int unit)
 {
     switch (unit) {
-    case 101:
+    case IOI:
         return 100000000;
     case m101:
         return 100000;
@@ -123,7 +123,7 @@ qint64 BitcoinUnits::factor(int unit)
 int BitcoinUnits::decimals(int unit)
 {
     switch (unit) {
-    case 101:
+    case IOI:
         return 8;
     case m101:
         return 5;
