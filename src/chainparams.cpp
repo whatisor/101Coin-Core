@@ -342,33 +342,8 @@ public:
         genesis.nNonce = 2193705;
 
         hashGenesisBlock = genesis.GetHash();
-		if(genesis.GetHash() != uint256("0x"))
-        {
-        printf("MSearching for genesis block...\n");
-        uint256 hashTarget;
-        hashTarget.SetCompact(genesis.nBits);
-        while(uint256(genesis.GetHash()) > uint256(hashTarget))
-        {
-            ++genesis.nNonce;
-            if (genesis.nNonce == 0)
-            {
-                printf("CReg NONCE WRAPPED, incrementing time");
-                std::cout << std::string("testnet NONCE WRAPPED, incrementing time:\n");
-                ++genesis.nTime;
-            }
-            if (genesis.nNonce % 10000 == 0)
-            {
-               printf("CReg: nonce %08u: hash = %s \n", genesis.nNonce, genesis.GetHash().ToString().c_str());
-            }
-        }
-        printf("CReg block.nTime = %u \n", genesis.nTime);
-        printf("CReg block.nNonce = %u \n", genesis.nNonce);
-        printf("CReg block.hashMerkleRoot: %s\n", genesis.hashMerkleRoot.ToString().c_str());
-        printf("CReg block.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-        }
 		
         nDefaultPort = 51476;
-		
 		
         assert(hashGenesisBlock == uint256("22655673b3911389da64dea5727f1247b8a5e2c4ad1ee3534679622132d12b9d"));
 		assert(genesis.hashMerkleRoot == uint256("fdab1dc28f9886fd403dbd599af67e8e928ed4d02d540de6455c7d1670aa06cf"));
