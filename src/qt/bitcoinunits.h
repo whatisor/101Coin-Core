@@ -58,7 +58,7 @@ public:
       @note Source: https://en.bitcoin.it/wiki/Units . Please add only sensible ones
      */
     enum Unit {
-        101,
+        IOI,
         m101,
         u101
     };
