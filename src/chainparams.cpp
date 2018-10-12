@@ -174,14 +174,14 @@ public:
 		hashGenesisBlock = uint256("0x01");
 		if (true && genesis.GetHash() != hashGenesisBlock)
 			{
-            Logprintf("recalculating params for mainnet.\n");
-            Logprintf("old mainnet genesis nonce: %s\n", genesis.nNonce.ToString().c_str());
-            Logprintf("old mainnet genesis hash:  %s\n", hashGenesisBlock.ToString().c_str());
+            printf("recalculating params for mainnet.\n");
+            printf("old mainnet genesis nonce: %s\n", genesis.nNonce.ToString().c_str());
+            printf("old mainnet genesis hash:  %s\n", hashGenesisBlock.ToString().c_str());
             // deliberately empty for loop finds nonce value.
             for(genesis.nNonce == 0; genesis.GetHash() > bnProofOfWorkLimit; genesis.nNonce++){ } 
-            Logprintf("new mainnet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
-            Logprintf("new mainnet genesis nonce: %s\n", genesis.nNonce.ToString().c_str());
-            Logprintf("new mainnet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
+            printf("new mainnet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+            printf("new mainnet genesis nonce: %s\n", genesis.nNonce.ToString().c_str());
+            printf("new mainnet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
 			}
 		
         assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
@@ -286,14 +286,14 @@ public:
         hashGenesisBlock = genesis.GetHash();
 		if (true && genesis.GetHash() != hashGenesisBlock)
 			{
-            Logprintf("recalculating params for testnet.\n");
-            Logprintf("old testnet genesis nonce: %s\n", genesis.nNonce.ToString().c_str());
-            Logprintf("old testnet genesis hash:  %s\n", hashGenesisBlock.ToString().c_str());
+            printf("recalculating params for testnet.\n");
+            printf("old testnet genesis nonce: %s\n", genesis.nNonce.ToString().c_str());
+            printf("old testnet genesis hash:  %s\n", hashGenesisBlock.ToString().c_str());
             // deliberately empty for loop finds nonce value.
             for(genesis.nNonce == 0; genesis.GetHash() > bnProofOfWorkLimit; genesis.nNonce++){ } 
-            Logprintf("new testnet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
-            Logprintf("new testnet genesis nonce: %s\n", genesis.nNonce.ToString().c_str());
-            Logprintf("new testnet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
+            printf("new testnet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+            printf("new testnet genesis nonce: %s\n", genesis.nNonce.ToString().c_str());
+            printf("new testnet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
 			}
 		
         assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
