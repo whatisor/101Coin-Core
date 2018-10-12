@@ -341,36 +341,10 @@ public:
         genesis.nBits = 0x207fffff;
         genesis.nNonce = 12345;
 
-        hashGenesisBlock = genesis.GetHash();
-		 		 if(genesis.GetHash() != uint256("0x"))
-        {
-        printf("MSearching for genesis block...\n");
-        uint256 hashTarget;
-        hashTarget.SetCompact(genesis.nBits);
-        while(uint256(genesis.GetHash()) > uint256(hashTarget))
-        {
-            ++genesis.nNonce;
-            if (genesis.nNonce == 0)
-            {
-                printf("testnet NONCE WRAPPED, incrementing time");
-                std::cout << std::string("testnet NONCE WRAPPED, incrementing time:\n");
-                ++genesis.nTime;
-            }
-            if (genesis.nNonce % 10000 == 0)
-            {
-               printf("testnet: nonce %08u: hash = %s \n", genesis.nNonce, genesis.GetHash().ToString().c_str());
-            }
-        }
-        printf("testnet block.nTime = %u \n", genesis.nTime);
-        printf("testnet block.nNonce = %u \n", genesis.nNonce);
-        printf("testnet block.hashMerkleRoot: %s\n", genesis.hashMerkleRoot.ToString().c_str());
-        printf("testnet block.GetHash = %s\n", genesis.GetHash().ToString().c_str());
-        }
-		
         nDefaultPort = 51476;
 		
 		
-        assert(hashGenesisBlock == uint256("0x4f023a2120d9127b21bbad01724fdb79b519f593f2a85b60d3d79160ec5f29df"));
+        assert(hashGenesisBlock == uint256("23370e680e83753d9700db2001c1d1563c07a5862d16ef55081ee67fccfa0984"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.
