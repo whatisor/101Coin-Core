@@ -172,29 +172,7 @@ public:
 
         hashGenesisBlock = genesis.GetHash();
 		hashGenesisBlock = uint256("0x01");
-	  // If genesis block hash does not match, then generate new genesis hash.
-		
-		 if (false && (genesis.GetHash() != hashGenesisBlock))
-        {
-            uint256 hashTarget = CBigNum().SetCompact(genesis.nBits).getuint256();
-            while (genesis.GetHash() > hashTarget)
-            {
-                ++genesis.nNonce;
-                if (genesis.nNonce == 0)
-                {
-                    printf("NONCE WRAPPED, incrementing time");
-                    ++genesis.nTime;
-                }
-            }
-            cout << "mainnet.genesis : \n" << genesis.ToString() << endl;
-            cout << "mainnet.genesis.GetHash(): " << genesis.GetHash().ToString() << endl;
-            cout << "mainnet.genesis.hashMerkleRoot: " << genesis.hashMerkleRoot.ToString() << endl;
-            cout << "mainnet.genesis.nTime: " << genesis.nTime << endl;
-            cout << "mainnet.genesis.nNonce: " << genesis.nNonce << endl;
-        }
-
-        hashGenesisBlock = genesis.GetHash();
-		
+	
         assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
         assert(genesis.hashMerkleRoot == uint256("0x1b2ef6e2f28be914103a277377ae7729dcd125dfeb8bf97bd5964ba72b6dc39b"));
 
@@ -295,26 +273,6 @@ public:
         genesis.nNonce = 2402015;
 
         hashGenesisBlock = genesis.GetHash();
-		
-		// If genesis block hash does not match, then generate new genesis hash.
-		if (true && (genesis.GetHash() != hashGenesisBlock))
-        {
-            uint256 hashTarget = CBigNum().SetCompact(genesis.nBits).getuint256();
-            while (genesis.GetHash() > hashTarget)
-            {
-                ++genesis.nNonce;
-                if (genesis.nNonce == 0)
-                {
-                    printf("NONCE WRAPPED, incrementing time");
-                    ++genesis.nTime;
-                }
-            }
-            cout << "testnet.genesis : \n" << genesis.ToString() << endl;
-            cout << "testnet.genesis.GetHash(): " << genesis.GetHash().ToString() << endl;
-            cout << "testnet.genesis.hashMerkleRoot: " << genesis.hashMerkleRoot.ToString() << endl;
-            cout << "testnet.genesis.nTime: " << genesis.nTime << endl;
-            cout << "testnet.genesis.nNonce: " << genesis.nNonce << endl;
-        }
   
 		
         assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
