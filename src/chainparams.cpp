@@ -173,33 +173,27 @@ public:
         hashGenesisBlock = genesis.GetHash();
 		hashGenesisBlock = uint256("0x01");
 	  // If genesis block hash does not match, then generate new genesis hash.
-		if (block.GetHash() != hashGenesisBlock)
-		{
-			printf("Searching for genesis block...\n");
-			// This will figure out a valid hash and Nonce if you're
-			// creating a different genesis block:
-			uint256 hashTarget = CBigNum().SetCompact(block.nBits).getuint256();
-			uint256 thash;
+		
+		 if (false && (genesis.GetHash() != hashGenesisBlock))
+        {
+            uint256 hashTarget = CBigNum().SetCompact(genesis.nBits).getuint256();
+            while (genesis.GetHash() > hashTarget)
+            {
+                ++genesis.nNonce;
+                if (genesis.nNonce == 0)
+                {
+                    printf("NONCE WRAPPED, incrementing time");
+                    ++genesis.nTime;
+                }
+            }
+            cout << "mainnet.genesis : \n" << genesis.ToString() << endl;
+            cout << "mainnet.genesis.GetHash(): " << genesis.GetHash().ToString() << endl;
+            cout << "mainnet.genesis.hashMerkleRoot: " << genesis.hashMerkleRoot.ToString() << endl;
+            cout << "mainnet.genesis.nTime: " << genesis.nTime << endl;
+            cout << "mainnet.genesis.nNonce: " << genesis.nNonce << endl;
+        }
 
-			while(true)
-			{
-				thash = scrypt_blockhash(BEGIN(block.nVersion));
-				if (thash <= hashTarget)
-					break;
-				if ((block.nNonce & 0xFFF) == 0)
-				{
-					printf("nonce %08X: hash = %s (target = %s)\n", block.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
-				}
-				++block.nNonce;
-				if (block.nNonce == 0)
-				{
-					printf("NONCE WRAPPED, incrementing time\n");
-					++block.nTime;
-				}
-			}
-			printf("block.nTime = %u \n", block.nTime);
-			printf("block.nNonce = %u \n", block.nNonce);
-			printf("block.GetHash = %s\n", block.GetHash().ToString().c_str());
+        hashGenesisBlock = genesis.GetHash();
 		
         assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
         assert(genesis.hashMerkleRoot == uint256("0x1b2ef6e2f28be914103a277377ae7729dcd125dfeb8bf97bd5964ba72b6dc39b"));
@@ -301,35 +295,27 @@ public:
         genesis.nNonce = 2402015;
 
         hashGenesisBlock = genesis.GetHash();
-	  // If genesis block hash does not match, then generate new genesis hash.
-   
-   if (block.GetHash() != hashGenesisBlock)
-    {
-        printf("Searching for genesis block...\n");
-        // This will figure out a valid hash and Nonce if you're
-        // creating a different genesis block:
-        uint256 hashTarget = CBigNum().SetCompact(block.nBits).getuint256();
-        uint256 thash;
-
-        while(true)
+		
+		// If genesis block hash does not match, then generate new genesis hash.
+		if (true && (genesis.GetHash() != hashGenesisBlock))
         {
-            thash = scrypt_blockhash(BEGIN(block.nVersion));
-            if (thash <= hashTarget)
-                break;
-            if ((block.nNonce & 0xFFF) == 0)
+            uint256 hashTarget = CBigNum().SetCompact(genesis.nBits).getuint256();
+            while (genesis.GetHash() > hashTarget)
             {
-                printf("nonce %08X: hash = %s (target = %s)\n", block.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
+                ++genesis.nNonce;
+                if (genesis.nNonce == 0)
+                {
+                    printf("NONCE WRAPPED, incrementing time");
+                    ++genesis.nTime;
+                }
             }
-            ++block.nNonce;
-            if (block.nNonce == 0)
-            {
-                printf("NONCE WRAPPED, incrementing time\n");
-                ++block.nTime;
-            }
+            cout << "testnet.genesis : \n" << genesis.ToString() << endl;
+            cout << "testnet.genesis.GetHash(): " << genesis.GetHash().ToString() << endl;
+            cout << "testnet.genesis.hashMerkleRoot: " << genesis.hashMerkleRoot.ToString() << endl;
+            cout << "testnet.genesis.nTime: " << genesis.nTime << endl;
+            cout << "testnet.genesis.nNonce: " << genesis.nNonce << endl;
         }
-        printf("block.nTime = %u \n", block.nTime);
-        printf("block.nNonce = %u \n", block.nNonce);
-        printf("block.GetHash = %s\n", block.GetHash().ToString().c_str());
+  
 		
         assert(hashGenesisBlock == uint256("0x0000041e482b9b9691d98eefb48473405c0b8ec31b76df3797c74a78680ef818"));
 
